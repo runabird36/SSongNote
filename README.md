@@ -24,6 +24,8 @@ dnf --enablerepo=powertools install libvpx-devel
 </br>
 
 ### pyenv
+
+
 ```
 1. pyenv 사용법 정리
 * global하게 여러 python 버전들을 선택 사용가능
@@ -62,3 +64,7 @@ dnf --enablerepo=powertools install libvpx-devel
 /etc/sudoers    # sudo 권한 설정 공간
 /etc/hosts      # IP 맵핑 설정 공간
 ```
+
+### Sphinx
+
+[sphinx 셋팅](https://hooni-playground.com/1101/)
