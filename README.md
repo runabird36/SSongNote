@@ -1,6 +1,6 @@
 # SSongNote
 
-### xStudio in Rocky Linux 8.X
+### - xStudio in Rocky Linux 8.X
 ```
 dnf config-manager --set-enabled powertools
 dnf install alsa-lib-devel pulseaudio-libs-devel
@@ -23,7 +23,7 @@ dnf --enablerepo=powertools install libvpx-devel
 </br>
 </br>
 
-### pyenv
+### - pyenv
 
 
 ```
@@ -59,12 +59,114 @@ dnf --enablerepo=powertools install libvpx-devel
 </br>
 
 
-### linux 설정들
+### - linux 설정들
 ```
-/etc/sudoers    # sudo 권한 설정 공간
-/etc/hosts      # IP 맵핑 설정 공간
+- /etc/sudoers    # sudo 권한 설정 공간
+...
+##
+## Allow root to run any commands anywhere 
+root	ALL=(ALL) 	ALL
+taiyeong.song ALL=(ALL) ALL
+## Allows members of the 'sys' group to run networking, software, 
+## service management apps and more.
+...
+
+
+- /etc/hosts      # IP 맵핑 설정 공간
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.4.2.15   gsteplic-02
+10.4.20.249 maru
+
 ```
+
+</br>
+</br>
 
 ### Sphinx
 
 [sphinx 셋팅](https://hooni-playground.com/1101/)
+
+</br>
+</br>
+
+
+## docker VS docker compose
+1. Docker
+
+	>  Single Container를 관리하는것. 커맨드 라인에서 명령어를 실행할 수 있다.
+
+ 
+
+2. Docker-compose
+
+	> yaml file 기반으로 multi container 관리할 수 있는 client이고 yaml파일에 명령어를 적어서 컨테이너를 정의하고 관리한다.
+
+
+## docker command
+[More detail](https://kibua20.tistory.com/135)
+
+```
+$ docker ps : show running container
+$ docker ps -a : show all running container including stopped one
+$ docker run ... : create and run new container from an image
+$ docker start [container name]
+$ docker stop [container name]
+$ docker kill [container name]
+$ docker image list : show all installed images
+
+$ docker container start [container name]
+$ docker container stop [container name]
+$ docker container kill [container name]
+$ docker container rm [container name]
+$ docker container ls -a
+```
+
+## docker compose command
+[More detail](https://kimjingo.tistory.com/108)
+
+```
+$ docker compose up : create and start container
+```
+
+## OpenCue - plugin
+[git](https://github.com/AcademySoftwareFoundation/OpenCue/tree/master/cuesubmit/plugins)
+
+## Kitsu Setup - single container
+> docker 로 관리 : single 이라서
+- [Kitsu Docker](https://github.com/cgwire/kitsu-docker)
+- [Kitsu Documentation](https://kitsu.cg-wire.com/#getting-started)
+- [Kitsu 1 minute tutorial](https://www.youtube.com/playlist?list=PLp_1gB5ZBHXqnQgZ4TCrAt7smxesaDo29)
+```
+# install image
+$ docker build -t cgwire/cgwire .
+
+# create and run container from installed image
+$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
+
+# create and run container from installed image as a daemon
+$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
+```
+
+## Ayon Setup - multi container
+> docker compose 로 관리 권장 (docker도 되긴함): multi 라서
+- [Ayon Docker](https://github.com/ynput/ayon-docker)
+- [Ayon Documentation](https://ayon.ynput.io/docs/artist_getting_started/)
+- [Ayon youtube channel](https://www.youtube.com/@ynput/playlists)
+```
+# install image
+$ docker compose up -d
+
+# login : http://localhost:5000/
+
+# ./settings/template.json
+# ID : admin
+# PW : admin
+```
+
+## Ayon - Gaffer
+[pull request](https://github.com/ynput/OpenPype/pull/4267)
+
+## Gaffer
+[Documentation](https://www.gafferhq.org/documentation/1.3.9.0/index.html)
