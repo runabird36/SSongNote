@@ -1,7 +1,7 @@
 # SSongNote
 
-### - xStudio in Rocky Linux 8.X
-```
+## xStudio in Rocky Linux 8.X
+```sh
 dnf config-manager --set-enabled powertools
 dnf install alsa-lib-devel pulseaudio-libs-devel
 dnf install freeglut-devel libjpeg-devel libuuid-devel
@@ -23,7 +23,7 @@ dnf --enablerepo=powertools install libvpx-devel
 </br>
 </br>
 
-### - pyenv
+## pyenv
 
 
 ```
@@ -54,13 +54,17 @@ dnf --enablerepo=powertools install libvpx-devel
 3. sphinx 로 docstring할 예시 작업 함수 및 클래스 작성
 4. 생성된 html을 깃허브에서 호스팅
 ```
+- Install pyenv:
+```sh
 
-</br>
-</br>
-
-
-### - linux 설정들
 ```
+
+</br>
+</br>
+
+
+## linux 설정들
+```sh
 - /etc/sudoers    # sudo 권한 설정 공간
 ...
 ##
@@ -84,9 +88,9 @@ taiyeong.song ALL=(ALL) ALL
 </br>
 </br>
 
-### Sphinx
+## Sphinx
 
-[sphinx 셋팅](https://hooni-playground.com/1101/)
+- [sphinx 셋팅](https://hooni-playground.com/1101/)
 
 </br>
 </br>
@@ -105,68 +109,112 @@ taiyeong.song ALL=(ALL) ALL
 
 
 ## docker command
-[More detail](https://kibua20.tistory.com/135)
+- [More detail](https://kibua20.tistory.com/135)
+	```sh
+	$ docker ps : show running container
+	$ docker ps -a : show all running container including stopped one
+	$ docker run ... : create and run new container from an image
+	$ docker start [container name]
+	$ docker stop [container name]
+	$ docker kill [container name]
+	$ docker image list : show all installed images
 
-```
-$ docker ps : show running container
-$ docker ps -a : show all running container including stopped one
-$ docker run ... : create and run new container from an image
-$ docker start [container name]
-$ docker stop [container name]
-$ docker kill [container name]
-$ docker image list : show all installed images
-
-$ docker container start [container name]
-$ docker container stop [container name]
-$ docker container kill [container name]
-$ docker container rm [container name]
-$ docker container ls -a
-```
+	$ docker container start [container name]
+	$ docker container stop [container name]
+	$ docker container kill [container name]
+	$ docker container rm [container name]
+	$ docker container ls -a
+	```
 
 ## docker compose command
-[More detail](https://kimjingo.tistory.com/108)
+- [More detail](https://kimjingo.tistory.com/108)
 
-```
-$ docker compose up : create and start container
-```
+	```sh
+	$ docker compose up : create and start container
+	```
 
 ## OpenCue - plugin
-[git](https://github.com/AcademySoftwareFoundation/OpenCue/tree/master/cuesubmit/plugins)
+- [git](https://github.com/AcademySoftwareFoundation/OpenCue/tree/master/cuesubmit/plugins)
 
 ## Kitsu Setup - single container
 > docker 로 관리 : single 이라서
 - [Kitsu Docker](https://github.com/cgwire/kitsu-docker)
 - [Kitsu Documentation](https://kitsu.cg-wire.com/#getting-started)
 - [Kitsu 1 minute tutorial](https://www.youtube.com/playlist?list=PLp_1gB5ZBHXqnQgZ4TCrAt7smxesaDo29)
-```
-# install image
-$ docker build -t cgwire/cgwire .
+	```sh
+	# install image
+	$ docker build -t cgwire/cgwire .
 
-# create and run container from installed image
-$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
+	# create and run container from installed image
+	$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
 
-# create and run container from installed image as a daemon
-$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
-```
+	# create and run container from installed image as a daemon
+	$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
+	```
 
 ## Ayon Setup - multi container
 > docker compose 로 관리 권장 (docker도 되긴함): multi 라서
 - [Ayon Docker](https://github.com/ynput/ayon-docker)
 - [Ayon Documentation](https://ayon.ynput.io/docs/artist_getting_started/)
 - [Ayon youtube channel](https://www.youtube.com/@ynput/playlists)
-```
-# install image
-$ docker compose up -d
+	```sh
+	# install image
+	$ docker compose up -d
 
-# login : http://localhost:5000/
+	# login : http://localhost:5000/
 
-# ./settings/template.json
-# ID : admin
-# PW : admin
-```
+	# ./settings/template.json
+	# ID : admin
+	# PW : admin
+	```
 
-## Ayon - Gaffer
-[pull request](https://github.com/ynput/OpenPype/pull/4267)
+## OpenPype - Gaffer (build openpype with 'Gaffer draft pull request' )
+- [Gaffer integration](https://community.ynput.io/t/gaffer-integration/183)
+- [pull request](https://github.com/ynput/OpenPype/pull/4267)
+	```sh
+	$ git clone https://github.com/ynput/ayon-launcher.git
+	$ git fetch origin pull/4267/head:test-gaffer
+
+	... pyenv setting for install python >= 3.9.6 ... 
+
+	$ ./tools/create_env.sh
+	$ ./tools/fetch_thirdparty_libs.sh
+	$ ./tools/build.sh
+	```
+- [ Solution : ValueError: unexpected '{' in field name ](https://github.com/ynput/OpenPype/issues/4608)
+	```sh
+	$ for func in `declare -x -F | sed 's/declare -fx//'`;do unset -f $func;done && ./openpype_gui
+	```
 
 ## Gaffer
-[Documentation](https://www.gafferhq.org/documentation/1.3.9.0/index.html)
+- [Documentation](https://www.gafferhq.org/documentation/1.3.9.0/index.html)
+
+## MongoDB install
+- [MongoDB Official Doc](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-red-hat/#std-label-install-mdb-community-redhat-centos)
+	> include doc about install / run / uninstall
+	```sh
+	$ touch /etc/yum.repos.d/mongodb-org-7.0.repo
+	$ vim /etc/yum.repos.d/mongodb-org-7.0.repo
+	[mongodb-org-7.0]
+	name=MongoDB Repository
+	baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/7.0/x86_64/
+	gpgcheck=1
+	enabled=1
+	gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
+
+	$ sudo yum install -y mongodb-org
+
+	```
+
+- [How to run mongoDB](https://www.golinuxcloud.com/install-mongodb-rocky-linux/)
+	```sh
+	$ systemctl start mongod
+	$ systemctl status mongod
+	```
+
+- [Solution : Active: failed (Result: exit-code) Error](https://kozeldark.tistory.com/134)
+	```sh
+	$ sudo rm -rf /tmp/mongodb-27017.sock
+	$ sudo systemctl stop mongod
+	$ sudo systemctl start mongod
+	```
