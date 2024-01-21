@@ -172,8 +172,9 @@ taiyeong.song ALL=(ALL) ALL
 - [Gaffer integration](https://community.ynput.io/t/gaffer-integration/183)
 - [pull request](https://github.com/ynput/OpenPype/pull/4267)
 	```sh
-	$ git clone https://github.com/ynput/ayon-launcher.git
+	$ git clone https://github.com/ynput/OpenPype.git
 	$ git fetch origin pull/4267/head:test-gaffer
+	$ git switch test-gaffer
 
 	... pyenv setting for install python >= 3.9.6 ... 
 
